@@ -1,0 +1,9 @@
+.oneChat{
+    border: 1px solid rebeccapurple;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    flex: 3 0 auto;
+}

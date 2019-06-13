@@ -1,0 +1,5 @@
+.chatList{
+    border: 1px solid rebeccapurple;
+    flex: 1 0 auto;
+    height: 100%;
+}
