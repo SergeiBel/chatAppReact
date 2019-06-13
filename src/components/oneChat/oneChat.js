@@ -6,6 +6,10 @@ import {sendMessage} from '../../actions/socketActions'
 
 
  class OneChat extends React.Component{
+    constructor(props) {
+        super(props);
+        this.myInput = React.createRef();
+    }
     render(){
         return(
             <div className="oneChat">
@@ -14,20 +18,32 @@ import {sendMessage} from '../../actions/socketActions'
                 <p>message</p>
                 <p>message</p>
                 <p>message</p>
-                <div>
-                    <input type="text" />
-                    <button onClick={() => this.props.sendMessage(1)}> Submit</button>
-                </div>
+                <form onSubmit={this.submitForm}>
+                    <input ref={this.myInput}/>
+                    <button type='submit'> Submit</button>
+                </form>
             </div>
-
         )
     }
+     submitForm = (e) =>{
+         e.preventDefault();
+         const a =this.myInput.current.value;
+         this.props.sendMessage(a);
+     };
+
+     componentDidMount(){
+         const {socket} = this.props;
+         socket.on('message', (message) => {
+            console.log(message)
+        })
+     }
+
 }
 
 
 const mapStateToProps = (state) => {
     return {
-        socket: state.socket,
+        socket: state.socket.socket,
         math: state.math,
         user: state.user
     }
