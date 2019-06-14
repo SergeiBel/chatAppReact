@@ -1,6 +1,5 @@
 import React from 'react';
 import './oneChat.css'
-import {addNumber, subtractNumber} from "../../actions/mathActions";
 import {connect} from "react-redux";
 import {sendMessage} from '../../actions/socketActions'
 
@@ -18,6 +17,9 @@ import {sendMessage} from '../../actions/socketActions'
                 <p>message</p>
                 <p>message</p>
                 <p>message</p>
+                <p>message</p>
+                <p>message</p>
+                <p>message</p>
                 <form onSubmit={this.submitForm}>
                     <input ref={this.myInput}/>
                     <button type='submit'> Submit</button>
@@ -28,35 +30,32 @@ import {sendMessage} from '../../actions/socketActions'
      submitForm = (e) =>{
          e.preventDefault();
          const a =this.myInput.current.value;
-         this.props.sendMessage(a);
+         let message = {
+             message: a,
+             room: this.props.room
+         };
+         console.log(this.props.room);
+         this.props.sendMessage(message);
      };
 
      componentDidMount(){
-         const {socket} = this.props;
-         socket.on('message', (message) => {
-            console.log(message)
+         this.props.socket.on('message', (message) => {
+            console.log(message);
         })
      }
-
 }
 
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
         socket: state.socket.socket,
-        math: state.math,
-        user: state.user
+        room: state.room
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addNum: (count) => {
-            dispatch(addNumber(count))
-        },
-        subtractNumber: (count) => {
-            dispatch(subtractNumber(count))
-        },
         sendMessage: (message) => {
             dispatch(sendMessage(message))
         }

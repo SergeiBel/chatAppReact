@@ -16,7 +16,9 @@ const Header = function App() {
                 <Link to='/login'>
                     <p>Login Page</p>
                 </Link>
-
+                <Link to='/register'>
+                    <p>Register Page</p>
+                </Link>
             </nav>
         </header>
     )

@@ -1,10 +1,11 @@
 import React from 'react';
 import Header from '../../components/header/header';
 import Login from '../../components/login/login';
+import Register from '../../components/register/register';
 import ChatsContainer from '../../components/chatsContainer/chatContainer';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {connect} from "react-redux";
-import {addNumber, subtractNumber} from '../../actions/mathActions'
+
 
  class App extends React.Component{
     render() {
@@ -14,10 +15,9 @@ import {addNumber, subtractNumber} from '../../actions/mathActions'
                 <Header/>
                 <Switch>
                     <Route path="/" exact component={ChatsContainer}/>
-                    <Route path="/login" component={Login}/>
+                    <Route path="/login" exact component={Login}/>
+                    <Route path="/register" exact component={Register}/>
                 </Switch>
-                <p>{this.props.math.count}</p>
-                <button onClick={() => this.props.addNum(10)}> adda </button>
             </div>
         </Router>
         )
@@ -27,18 +27,11 @@ import {addNumber, subtractNumber} from '../../actions/mathActions'
 const mapStateToProps = (state) => {
     return {
         math: state.math,
-        user: state.user
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addNum: (count) => {
-            dispatch(addNumber(count))
-        },
-        subtractNumber: (count) => {
-            dispatch(subtractNumber(count))
-        }
     }
 };
 

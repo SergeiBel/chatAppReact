@@ -1,14 +1,11 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import logger from "redux-logger";
-import user from "./reducers/userReducer"
-import math from "./reducers/mathReducer"
 import socket from "./reducers/socketReducer"
+import thunk from "redux-thunk"
 
 export default createStore(
     combineReducers({
-        user,
-        math,
         socket
     }),
     {},
-    applyMiddleware(logger));
+    applyMiddleware(logger, thunk));

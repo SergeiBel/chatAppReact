@@ -1,16 +1,49 @@
 import React from 'react';
 import './chatList.css'
+import {joinRoom} from "../../actions/socketActions";
+import {connect} from "react-redux";
 
-
-const ChatList = function App() {
-    return(
-        <div className="chatList">
+class ChatList extends React.Component{
+    render(){
+        return(
+            <div className="chatList">
             <h1>Your chats</h1>
-            <p>First Chat</p>
-            <p>Second chat</p>
+            <button onClick={() => this.joinRoom(1)}> 1 adidas</button>
+            <br/>
+            <button onClick={() => this.joinRoom(2)}>2 adas</button>
         </div>
-    )
+        )
+    }
+
+    joinRoom(roomId){
+        this.props.socket.emit('join', {room: roomId});
+        this.props.joinRoom(roomId)
+    }
+
+    componentDidMount() {
+        this.props.socket.on(
+            'new user', (data)=> {
+                console.log(data)
+            }
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        socket: state.socket.socket,
+        math: state.math,
+        user: state.user
+    }
 };
 
-export default ChatList;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        joinRoom: (data)=> {
+            dispatch(joinRoom(data))
+        }
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
 
