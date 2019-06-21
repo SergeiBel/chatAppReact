@@ -1,0 +1,51 @@
+.chatList{
+    padding: 10px 27px 10px  10px;
+    border-radius: 15px;
+    margin: 5px;
+    height: 100%;
+    width: 20vw;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.chatListContainer{
+    margin: 10px;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    padding-right: 17px;
+    box-sizing: content-box;
+}
+
+.my-button{
+    width: 100%;
+}
+
+button{
+    outline: none;
+}
+
+.button-container{
+    background-color: white;
+    width: 100%;
+    margin: 10px auto;
+    color: black;
+    border: 2px solid #e7e7e7;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
+.button-container:hover {
+    background-color: #e7e7e7;
+}

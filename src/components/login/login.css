@@ -1,19 +1,35 @@
 .loginContainer{
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer form{
+    height: 60%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-.loginContainer input{
-    width: 500px;
-    margin: 30px;
-    padding: 20px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+.inputField{
+    outline: none;
+    width: 100%;
 }
 
-.loginContainer input:focus{
-    outline: none;
+.log-in-button{
+    width: 45vw;
+    height: 60px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px  white inset !important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: black !important;
 }

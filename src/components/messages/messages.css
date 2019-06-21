@@ -1,0 +1,26 @@
+.chatMessages {
+    height: 50vh;
+    width: 60vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: scroll;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    justify-content: space-between;
+    flex: 3 0 auto;
+}
+
+.message{
+    background: #a9e2ff;
+    border: 1px #78b4ff solid;
+    width: 30vw;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: justify;
+    word-wrap: break-word;
+}
+
+

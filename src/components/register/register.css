@@ -5,15 +5,15 @@
     align-items: center;
 }
 
-.loginContainer input{
-    width: 500px;
-    margin: 30px;
-    padding: 20px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-}
+/*.loginContainer input{*/
+    /*width: 500px;*/
+    /*margin: 30px;*/
+    /*padding: 20px;*/
+    /*-webkit-border-radius: 10px;*/
+    /*-moz-border-radius: 10px;*/
+    /*border-radius: 10px;*/
+/*}*/
 
-.loginContainer input:focus{
-    outline: none;
-}
+/*.loginContainer input:focus{*/
+    /*outline: none;*/
+/*}*/
