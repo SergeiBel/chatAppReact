@@ -1,10 +1,3 @@
-export function sendMessage(message) {
-    return {
-        type: 'MESSAGE',
-        payload: message
-    }
-}
-
 export function setActiveChat(data) {
     return {
         type: 'SET_ACTIVE_CHAT',
@@ -12,9 +5,16 @@ export function setActiveChat(data) {
     }
 }
 
-export function saveChatList(data) {
+export function saveAllChats(data) {
     return {
         type: 'SAVE_CHAT_LIST',
+        payload: data
+    }
+}
+
+export function saveMyChats(data) {
+    return {
+        type: 'SAVE_MY_CHAT_LIST',
         payload: data
     }
 }

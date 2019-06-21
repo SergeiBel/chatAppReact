@@ -14,7 +14,26 @@
 .messagesContainer{
     width: 80%;
     height: 80%;
-    border: 1px solid red;
     overflow-y: scroll;
 }
 
+.joinText{
+    margin-right: 5px;
+}
+
+.sendIcon{
+    margin-left: 5px;
+}
+
+.messageForm {
+    padding: 5px;
+}
+
+.messageForm Button{
+height: 100%;
+}
+
+
+.messageForm input{
+    height: 3vh;
+}

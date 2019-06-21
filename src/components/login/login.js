@@ -30,7 +30,6 @@ render()
                     }}
                     margin="normal"
                     autoComplete='off'
-
                 />
                 <TextField
                     className='inputField'
@@ -42,7 +41,6 @@ render()
                     }}
                     margin="normal"
                     autoComplete='none'
-
                 />
                 <Button onClick={this.login} variant="outlined" color="primary" className="log-in-button">
                     Log In

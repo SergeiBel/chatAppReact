@@ -2,12 +2,12 @@ import React from 'react';
 import './chatList.css'
 import {connect} from "react-redux";
 import axios from 'axios';
-import {setActiveChat} from "../../actions/chatActions"
-import {saveChatList} from "../../actions/chatActions";
-import {addOneChat} from "../../actions/chatActions";
+import {setActiveChat, saveMyChats , addOneChat, saveAllChats} from "../../actions/chatActions"
 import NewChat from "../newChat/newChat"
 import styled, {keyframes} from "styled-components";
 import {rollIn} from "react-animations";
+import {Checkbox}  from "@material-ui/core";
+
 
 const RollIn = styled.div`animation: 0.4s ${keyframes`${rollIn}`} linear`;
 axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('ACCESS_TOKEN');
@@ -16,7 +16,8 @@ class ChatList extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            messages: '',
+            chats: [],
+            onlyMy: true,
         }
     }
     render(){
@@ -24,9 +25,18 @@ class ChatList extends React.Component{
             <div className="chatList">
                 <div className="chatListContainer">
                     <h1>All chats</h1>
+                    <Checkbox
+                        checked={this.state.onlyMy}
+                        onClick={this.handleCheck}
+                        value="checkedA"
+                        inputProps={{
+                            'aria-label': 'primary checkbox',
+                        }}
+                    />
+                    <span>Show all</span>
                     <NewChat />
                     <ul>{
-                        this.props.chatList.map(
+                        this.state.chats.map(
                             room => {
                                 return (
                                   <RollIn key={room._id} >
@@ -40,16 +50,47 @@ class ChatList extends React.Component{
         )
     }
 
-    componentDidMount() {
-        if(localStorage.getItem('_ID')){
-            axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('ACCESS_TOKEN');
-            axios.get('http://localhost:3000/chat/room')
-            .then(
-                res => {
-                    this.props.setActiveChat(res.data[0]);
-                    this.props.saveChatList(res.data);
+    handleCheck = (e) => {
+        e.preventDefault();
+        if(this.state.onlyMy){
+            this.setState(
+                {
+                    onlyMy: !this.state.onlyMy,
+                    chats: this.props.myChats
                 }
+            );
+        }else{
+            this.setState(
+                {
+                    onlyMy: !this.state.onlyMy,
+                    chats: this.props.chatList
+                }
+            );
+        }
+    };
+
+   componentDidMount() {
+        if(localStorage.getItem('_ID')){
+            axios.get('http://localhost:3000/chat/room')
+                .then(
+                    res => {
+                        this.props.setActiveChat(res.data[0]);
+                        this.props.saveAllChats(res.data);
+                    }
+                );
+            axios.get(
+                `http://localhost:3000/chat/myRooms`
             )
+                .then(
+                    response => {
+                        this.props.saveMyChats(response.data);
+                        this.setState(
+                            {
+                                chats: this.props.chatList
+                            }
+                        );
+                    }
+                );
         }
         this.props.socket.on('new_chat',
         (data) => {
@@ -68,6 +109,7 @@ const mapStateToProps = (state) => {
         user: state.user,
         chatList: state.chat.chatList,
         activeChat: state.chat.activeChat,
+        myChats: state.chat.myChats,
     }
 };
 
@@ -76,12 +118,16 @@ const mapDispatchToProps = (dispatch) => {
         setActiveChat: (data) => {
             dispatch(setActiveChat(data))
         },
-        saveChatList: (data) => {
-            dispatch(saveChatList(data))
-        },
         addOneChat: (data) => {
             dispatch(addOneChat(data))
+        },
+        saveMyChats: (data) => {
+            dispatch(saveMyChats(data))
+        },
+        saveAllChats: (data) => {
+            dispatch(saveAllChats(data))
         }
+
     }
 };
 

@@ -6,6 +6,7 @@ const chatReducer = (state = {
     socket,
     activeChat:'',
     chatList:[],
+    myChats:[],
 }, action) => {
     switch(action.type){
         case 'MESSAGE':
@@ -19,10 +20,18 @@ const chatReducer = (state = {
                 activeChat: action.payload
             };
             break;
+
+
         case 'SAVE_CHAT_LIST':
             state = {
                 ...state,
-                chatList: [...state.chatList, ...action.payload]
+                chatList: [...action.payload]
+            };
+            break;
+        case 'SAVE_MY_CHAT_LIST':
+            state = {
+                ...state,
+                myChats: [...action.payload]
             };
             break;
         case 'ADD_ONE_CHAT':
@@ -31,6 +40,7 @@ const chatReducer = (state = {
                 chatList: [...state.chatList, action.payload]
             };
             break;
+
         // case 'CLEAR_STORE':
         //     state = {
         //         ...state,
