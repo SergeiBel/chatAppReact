@@ -105,6 +105,9 @@ class ChatList extends React.Component{
         this.props.socket.on('new_chat',
         (data) => {
             this.props.addOneChat(data.chat);
+            this.setState({
+                chats: [...this.state.chats, data.chat]
+            })
         })
     }
 

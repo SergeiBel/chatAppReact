@@ -2,9 +2,13 @@ import React from 'react';
 import './messages.css'
 
 class Messages extends React.Component{
+    constructor(props){
+        super(props);
+        this.chatRef = React.createRef();
+    }
     render() {
         return(
-        <ul className="chatMessages">
+        <ul ref={this.chatRef} className="chatMessages">
             {
                 this.props.messages.map(
                     message=> {
@@ -25,5 +29,16 @@ class Messages extends React.Component{
         </ul>
         )
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.scrollToBottom()
+
+    }
+
+    scrollToBottom(){
+        this.chatRef.current.scrollTop = this.chatRef.current.scrollHeight;
+    }
 }
+
+
 export default Messages

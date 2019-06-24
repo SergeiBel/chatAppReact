@@ -17,7 +17,7 @@ class OneChat extends React.Component{
     }
     render(){
         return(
-            <div className="oneChat">
+            <div  className="oneChat">
                 {this.props.activeChat?<h1>{this.props.chat.activeChat.name}</h1>:null}
                 <Messages messages={this.state.messages}/>
                 {
@@ -62,6 +62,7 @@ class OneChat extends React.Component{
         this.props.addOneMyChat(this.props.activeChat)
 
     };
+
 
      sendMessage = (e) =>{
          e.preventDefault();
