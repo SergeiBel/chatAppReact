@@ -34,12 +34,19 @@ const chatReducer = (state = {
                 myChats: [...action.payload]
             };
             break;
+        case 'ADD_ONE_MY_CHAT':
+            state = {
+                ...state,
+                myChats: [...state.myChats, action.payload]
+            };
+            break;
         case 'ADD_ONE_CHAT':
             state = {
                 ...state,
-                chatList: [...state.chatList, action.payload]
+                chatList: [...state.chatList, action.payload],
             };
             break;
+
 
         // case 'CLEAR_STORE':
         //     state = {

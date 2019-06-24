@@ -3,7 +3,7 @@ import './chatList.css'
 import {connect} from "react-redux";
 import axios from 'axios';
 import {setActiveChat, saveMyChats , addOneChat, saveAllChats} from "../../actions/chatActions"
-import NewChat from "../newChat/newChat"
+import NewChat from "../../components/newChat/newChat"
 import styled, {keyframes} from "styled-components";
 import {rollIn} from "react-animations";
 import {Checkbox}  from "@material-ui/core";
@@ -34,7 +34,7 @@ class ChatList extends React.Component{
                         }}
                     />
                     <span>Show all</span>
-                    <NewChat />
+                    <NewChat chatList={this.props.chatList} socket={this.props.socket} addOneChat={this.props.addOneChat} saveChat={this.saveChat.bind(this)}/>
                     <ul>{
                         this.state.chats.map(
                             room => {
@@ -47,6 +47,13 @@ class ChatList extends React.Component{
                     }</ul>
                 </div>
             </div>
+        )
+    }
+
+    saveChat(chat){
+        this.setState({
+            chats: [...this.state.chats, chat]
+            }
         )
     }
 
@@ -89,8 +96,11 @@ class ChatList extends React.Component{
                                 chats: this.props.chatList
                             }
                         );
+                        if(this.props.activeChat){
+                            this.openRoom(this.state.chats[0]);
+                        }
                     }
-                );
+        );
         }
         this.props.socket.on('new_chat',
         (data) => {
@@ -99,14 +109,17 @@ class ChatList extends React.Component{
     }
 
     openRoom(room){
-        this.props.setActiveChat(room)
+        this.props.setActiveChat(room);
+        this.props.socket.emit('open_room', {
+            room: room._id,
+            _id: localStorage.getItem('_ID')
+        })
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         socket: state.chat.socket,
-        user: state.user,
         chatList: state.chat.chatList,
         activeChat: state.chat.activeChat,
         myChats: state.chat.myChats,
@@ -132,4 +145,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);
-

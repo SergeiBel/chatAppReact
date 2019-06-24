@@ -1,10 +1,8 @@
 import React from 'react';
 import {SvgIcon, Button, TextField} from "@material-ui/core";
 import axios from "axios";
-import {connect} from "react-redux";
-import {zoomIn} from 'react-animations'
-import styled, {keyframes} from 'styled-components'
-import {addOneChat} from "../../actions/chatActions";
+import {zoomIn} from 'react-animations';
+import styled, {keyframes} from 'styled-components';
 
 const ZoomIn = styled.div`animation: 0.1s ${keyframes`${zoomIn}`} linear`;
 const FadeIn = styled.div`animation: 0.4s ${keyframes`${zoomIn}`} linear`;
@@ -80,6 +78,7 @@ class NewChat extends React.Component{
                     const chat  =res.data;
                     this.props.socket.emit('new_chat', {chat});
                     this.props.addOneChat(chat);
+                    this.props.saveChat(chat);
                 }
             )
             .catch(
@@ -89,25 +88,6 @@ class NewChat extends React.Component{
             );
         this.setState({'isCreating': false})
     };
-    
-    componentDidMount() {
-    }
 }
-const mapStateToProps = (state) => {
-    return {
-        socket: state.chat.socket,
-        user: state.user,
-        chatList: state.chat.chatList,
-    }
-};
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addOneChat: (data) => {
-            dispatch(addOneChat(data))
-        }
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewChat);
-
+export default NewChat;

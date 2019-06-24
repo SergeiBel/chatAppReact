@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import axios from "axios";
 import Messages from '../../components/messages/message';
 import {SvgIcon, Button, TextField} from "@material-ui/core";
-
+import {addOneMyChat} from '../../actions/chatActions'
 
 class OneChat extends React.Component{
     constructor(props) {
@@ -58,7 +58,9 @@ class OneChat extends React.Component{
                 room: this.props.activeChat._id,
                 _id: localStorage.getItem('_ID'),
             }
-        )
+        );
+        this.props.addOneMyChat(this.props.activeChat)
+
     };
 
      sendMessage = (e) =>{
@@ -86,8 +88,17 @@ class OneChat extends React.Component{
             )
                 .then(
                     response => {
-                        console.log(response)
-                        this.setState({messages: response.data});
+                        this.setState({
+                            messages: response.data,
+                            isJoined: false,
+                        });
+                        if(this.props.activeChat){
+                            for (let chat of this.props.myChats){
+                                if (chat._id === this.props.activeChat._id){
+                                    this.setState({isJoined: true})
+                                }
+                            }
+                        }
                     }
                 );
         }
@@ -103,10 +114,7 @@ class OneChat extends React.Component{
              if(message.roomId === this.props.activeChat._id){
              this.setState(
                  {messages: [...this.state.messages, message]}
-             )} else {
-
-             }
-
+             )}
          });
      }
 }
@@ -115,9 +123,18 @@ const mapStateToProps = (state) => {
     return {
         socket: state.chat.socket,
         chat: state.chat,
+        myChats: state.chat.myChats,
         activeChat: state.chat.activeChat,
     }
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return{
+        addOneMyChat: (data) => {
+            dispatch(addOneMyChat(data))
+        }
+    }
+};
 
-export default connect(mapStateToProps)(OneChat);
+
+export default connect(mapStateToProps, mapDispatchToProps)(OneChat);

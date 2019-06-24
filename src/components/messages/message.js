@@ -8,11 +8,15 @@ class Messages extends React.Component{
             {
                 this.props.messages.map(
                     message=> {
+                        let messageClass;
+                        if(localStorage.getItem('_ID')===message.authorId){messageClass = 'my'}else {messageClass = 'notMy'}
                         return (
-                            <div className='message' key={message._id}>
-                                <span>{message.author}</span>
-                                <br/>
-                                <span>{message.text}</span>
+                            <div className={messageClass} key={message._id}>
+                                <div className='message'>
+                                    <span className={messageClass==='my'?'message-author-right':'message-author-left'}>{message.author}</span>
+                                    <br/>
+                                    <span className='textMessage'>{message.text}</span>
+                                </div>
                             </div>
                         )
                     }
@@ -22,4 +26,4 @@ class Messages extends React.Component{
         )
     }
 }
-export default Messages;
+export default Messages
