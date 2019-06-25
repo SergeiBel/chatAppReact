@@ -7,8 +7,11 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import axios from "axios";
 import {initApp, saveUser} from "../../actions/userActions";
 import {connect} from "react-redux";
+import {refreshAuthLogic} from '../../auth/refreshInterceptor';
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('ACCESS_TOKEN');
+createAuthRefreshInterceptor(axios, refreshAuthLogic);
 
  class App extends React.Component{
     render() {

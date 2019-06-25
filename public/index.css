@@ -6,6 +6,7 @@
 body{
     height: 100%;
     width: 100%;
+    overflow: -moz-scrollbars-none;
     overflow: hidden;
 }
 
@@ -13,5 +14,3 @@ body{
     display: none;
     -ms-overflow-style: none;
 }
-
-body { overflow: -moz-scrollbars-none; }
