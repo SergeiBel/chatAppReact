@@ -1,10 +1,7 @@
 .oneChat{
-    margin: 5px;
-    padding: 10px;
-    border-radius: 15px;
+    padding: 20px;
     height: 100%;
     display: flex;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     align-items: center;
     justify-content: space-between;
     flex-direction: column;

@@ -1,14 +1,13 @@
 .chatList{
-    padding: 10px 27px 10px  10px;
-    border-radius: 15px;
+    padding: 0 27px 0  0;
     margin: 5px;
     height: 100%;
     width: 20vw;
+    border-right: 2px dotted gray;
     display: flex;
     justify-content: flex-start;
     align-content: center;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     overflow: hidden;
 }
 

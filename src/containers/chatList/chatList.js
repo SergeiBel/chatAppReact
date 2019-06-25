@@ -10,7 +10,6 @@ import {Checkbox}  from "@material-ui/core";
 
 
 const RollIn = styled.div`animation: 0.4s ${keyframes`${rollIn}`} linear`;
-axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('ACCESS_TOKEN');
 
 class ChatList extends React.Component{
     constructor(props){

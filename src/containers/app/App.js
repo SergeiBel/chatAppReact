@@ -5,7 +5,7 @@ import Register from '../../components/register/register';
 import ChatsContainer from '../chatsContainer/chatContainer';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import axios from "axios";
-import {initApp, saveUser} from "../../actions/userActions";
+import {initApp, saveUser, deleteUser} from "../../actions/userActions";
 import {connect} from "react-redux";
 import {refreshAuthLogic} from '../../auth/refreshInterceptor';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
@@ -30,6 +30,7 @@ createAuthRefreshInterceptor(axios, refreshAuthLogic);
     }
  }
 
+
 const mapStateToProps = (state) => {
     return {
         user: state.user
@@ -43,6 +44,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         saveUser: (message) => {
             dispatch(saveUser(message))
+        },
+        deleteUser: (message) => {
+            dispatch(deleteUser(message))
         }
     }
 };

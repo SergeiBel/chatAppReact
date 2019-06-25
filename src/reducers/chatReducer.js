@@ -20,8 +20,6 @@ const chatReducer = (state = {
                 activeChat: action.payload
             };
             break;
-
-
         case 'SAVE_CHAT_LIST':
             state = {
                 ...state,
@@ -46,14 +44,18 @@ const chatReducer = (state = {
                 chatList: [...state.chatList, action.payload],
             };
             break;
-
-
-        // case 'CLEAR_STORE':
-        //     state = {
-        //         ...state,
-        //         socket: {}
-        //     };
-        //     break;
+        case 'DELETE_ONE_MY_CHAT':
+            let index;
+            for (let [i, value] of state.myChats.entries()){
+                if(value._id === action.payload){
+                    index = i;
+                }
+            }
+            state = {
+                ...state,
+                myChats: state.myChats.splice(index, 1)
+            };
+            break;
         default:
     }
     return state;

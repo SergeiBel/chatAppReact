@@ -3,8 +3,8 @@ import './oneChat.css'
 import {connect} from "react-redux";
 import axios from "axios";
 import Messages from '../../components/messages/message';
-import {SvgIcon, Button, TextField} from "@material-ui/core";
-import {addOneMyChat} from '../../actions/chatActions'
+import {SvgIcon, Button , TextField} from "@material-ui/core";
+import {addOneMyChat,deleteOneMyChat} from '../../actions/chatActions'
 
 class OneChat extends React.Component{
     constructor(props) {
@@ -18,6 +18,9 @@ class OneChat extends React.Component{
     render(){
         return(
             <div  className="oneChat">
+                <Button onClick={this.leaveChat}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 8V5l-7 7 7 7v-3l-4-4 4-4zm6 1V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                </Button>
                 {this.props.activeChat?<h1>{this.props.chat.activeChat.name}</h1>:null}
                 <Messages messages={this.state.messages}/>
                 {
@@ -29,7 +32,7 @@ class OneChat extends React.Component{
                                     placeholder="Input your message"
                                     ref={this.myInput}
                                     type='text'
-                                    margin="none"
+                                    variant="outlined"                                    margin="none"
                                     autoComplete='off'
                                 />
                                 <Button onClick={this.sendMessage} variant="contained" color="primary">
@@ -50,6 +53,18 @@ class OneChat extends React.Component{
         )
     }
 
+    leaveChat = (e) => {
+        this.setState({
+            isJoined : false
+    });
+        this.props.deleteOneMyChat(this.props.activeChat._id);
+        e.preventDefault();
+        this.props.socket.emit('leave', {
+            room: this.props.activeChat._id,
+            _id: localStorage.getItem('_ID')
+        })
+    };
+
     join = (e) => {
         e.preventDefault();
         this.setState({isJoined: true});
@@ -66,8 +81,10 @@ class OneChat extends React.Component{
 
      sendMessage = (e) =>{
          e.preventDefault();
+         let time = new Date();
          this.props.socket.emit(
              'message', {
+                 createdAt: time.toLocaleString(),
                  message: this.myInput.current.querySelector("input").value,
                  room: this.props.activeChat._id,
                  _id: localStorage.getItem('_ID')
@@ -75,6 +92,7 @@ class OneChat extends React.Component{
          );
          this.setState({messages: [...this.state.messages,
                  {
+                     createdAt: time.toLocaleString(),
                      text: this.myInput.current.querySelector("input").value,
                      authorId: localStorage.getItem('_ID'),
                      author: localStorage.getItem('LOGIN'),
@@ -133,6 +151,9 @@ const mapDispatchToProps = (dispatch) => {
     return{
         addOneMyChat: (data) => {
             dispatch(addOneMyChat(data))
+        },
+        deleteOneMyChat: (data) => {
+            dispatch(deleteOneMyChat(data))
         }
     }
 };

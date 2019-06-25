@@ -33,6 +33,13 @@ export function addOneMyChat(data) {
     }
 }
 
+export function deleteOneMyChat(data) {
+    return{
+        type: 'DELETE_ONE_MY_CHAT',
+        payload: data
+    }
+}
+
 export function clearStore(data) {
     return{
         type: 'CLEAR_STORE',

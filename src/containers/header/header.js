@@ -48,9 +48,6 @@ function Header(props){
     )
 }
 
-
-
-
 const mapStateToProps = (state) => {
     return {
         user: state.user
